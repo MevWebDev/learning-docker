@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  backend:
+    container_name: express-backend
+    build: .
+    ports:
+      - "3000:3000"
+    networks:
+      - net_A
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+
+  redis:
+    container_name: redis
+    image: redis
+    networks:
+      - net_A
+
+networks:
+  net_A:
+    external: false
+    name: net_A
